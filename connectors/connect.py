@@ -6,7 +6,7 @@ from pinecone import Pinecone
 
 load_dotenv()  # Load environment variables
 
-def connect(db_type: str):
+def connection(db_type: str):
     """
     Creates a connection to either Pinecone or Qdrant, based on the db_type.
     :param db_type: "pinecone" or "qdrant"

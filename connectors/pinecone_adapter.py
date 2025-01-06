@@ -1,9 +1,9 @@
 from base.abstract import VectorDatabase
-from connect import connect
+from connectors.connect import connection
 
-class PineCone(VectorDatabase):
+class PineConeDB(VectorDatabase):
     def __init__(self, **kwargs):
-        self.connector = connect("pinecone")
+        self.connector = connection("pinecone")
 
     def create_collection(self, name, dimension, **kwargs) -> None:
         """

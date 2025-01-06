@@ -1,5 +1,5 @@
 # factory.py
-from connectors.pinecone_adapter import PineconeDB
+from connectors.pinecone_adapter import PineConeDB
 from connectors.qdrant_adapter import QdrantDB
 
 class VectorDBFactory:
@@ -8,7 +8,7 @@ class VectorDBFactory:
 
     def _get_client(self, db_type: str, **kwargs):
         if db_type.lower() == "pinecone":
-            return PineconeDB(**kwargs)
+            return PineConeDB(**kwargs)
         elif db_type.lower() == "qdrant":
             return QdrantDB(**kwargs)
         else:
