@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 venv
 refer-this.txt
+.env
+env
