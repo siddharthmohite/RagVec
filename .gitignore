@@ -4,3 +4,5 @@ venv
 refer-this.txt
 .env
 env
+nodemodules
+node_modules
