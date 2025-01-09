@@ -2,3 +2,4 @@ requests
 python-dotenv
 pinecone
 qdrant-client
+pytest
