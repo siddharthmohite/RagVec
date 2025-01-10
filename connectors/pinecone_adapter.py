@@ -1,5 +1,6 @@
 from base.abstract import VectorDatabase
 from connectors.connect import connection
+from pinecone import ServerlessSpec
 
 class PineConeDB(VectorDatabase):
     def __init__(self, **kwargs):
@@ -7,21 +8,26 @@ class PineConeDB(VectorDatabase):
 
     def create_collection(self, name, dimension, **kwargs) -> None:
         """
-        Creating a new Pinecone index with optional settings
+        Create a new Pinecone index with optional settings.
         """
-
-        pod_type = kwargs.get("pod_type", "p1")
-        replicas = kwargs.get("replicas", 1)
-        metadata_config = kwargs.get("metadata_config", None)
+        # Optional parameters for Pinecone's create_index
+        cloud = kwargs.get("cloud", "aws")
+        region = kwargs.get("region", "us-east-1")
+        metric = kwargs.get("metric", "cosine")  # Metric: cosine, dotproduct, or euclidean
 
         try:
             self.connector.create_index(
-                name = name,
-                dimension = dimension,
-                pod_type = pod_type,
-                replicas = replicas,
-                metadata_config = metadata_config
+                name=name,
+                dimension=dimension,
+                metric=metric,
+                spec=ServerlessSpec(
+                    cloud=cloud,
+                    region=region
+                )
             )
-            print(f"created collection {name} with dimension {dimension}")
         except Exception as e:
-            print(f"Failed while creating collection {name}: {e}")
+            print(f"Pinecone: Failed to create index '{name}': {e}")
+            return  # Exit the function if an exception occurs
+
+        # Only print this message if the creation succeeds
+        print(f"Pinecone: Successfully created index '{name}' with dimension {dimension} and metric {metric}.")

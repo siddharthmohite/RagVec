@@ -14,14 +14,13 @@ def connection(db_type: str):
     """
     if db_type.lower() == "pinecone":
         pinecone_api_key = os.getenv("PINECONE_API_KEY_REMOTE")
-        environment = os.getenv("PINECONE_ENVIRONMENT")
 
-        if not pinecone_api_key or not environment:
+        if not pinecone_api_key:
             raise ValueError(
                 "Pinecone API Key and environment must be provided via environment variables."
             )
         try:
-            connector = Pinecone(api_key=pinecone_api_key, environment=environment)
+            connector = Pinecone(api_key=pinecone_api_key)
             return connector
         except Exception as e:
             raise RuntimeError(f"Failed to connect to Pinecone: {e}")
