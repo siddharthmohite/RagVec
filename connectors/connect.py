@@ -6,6 +6,10 @@ from pinecone import Pinecone
 
 load_dotenv()  # Load environment variables
 
+print("Pinecone API Key:", os.getenv("PINECONE_API_KEY_REMOTE"))
+print("Qdrant Endpoint:", os.getenv("QDRANT_ENDPOINT_REMOTE"))
+print("Qdrant API Key:", os.getenv("QDRANT_API_KEY_REMOTE"))
+
 def connection(db_type: str):
     """
     Creates a connection to either Pinecone or Qdrant, based on the db_type.
@@ -14,14 +18,13 @@ def connection(db_type: str):
     """
     if db_type.lower() == "pinecone":
         pinecone_api_key = os.getenv("PINECONE_API_KEY_REMOTE")
-        environment = os.getenv("PINECONE_ENVIRONMENT")
 
-        if not pinecone_api_key or not environment:
+        if not pinecone_api_key:
             raise ValueError(
                 "Pinecone API Key and environment must be provided via environment variables."
             )
         try:
-            connector = Pinecone(api_key=pinecone_api_key, environment=environment)
+            connector = Pinecone(api_key=pinecone_api_key)
             return connector
         except Exception as e:
             raise RuntimeError(f"Failed to connect to Pinecone: {e}")
