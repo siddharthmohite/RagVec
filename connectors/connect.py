@@ -6,10 +6,6 @@ from pinecone import Pinecone
 
 load_dotenv()  # Load environment variables
 
-print("Pinecone API Key:", os.getenv("PINECONE_API_KEY_REMOTE"))
-print("Qdrant Endpoint:", os.getenv("QDRANT_ENDPOINT_REMOTE"))
-print("Qdrant API Key:", os.getenv("QDRANT_API_KEY_REMOTE"))
-
 def connection(db_type: str):
     """
     Creates a connection to either Pinecone or Qdrant, based on the db_type.
