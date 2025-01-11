@@ -14,13 +14,12 @@ def test_qdrant_collection():
     Test creating a real Qdrant collection using the library.
     """
     # Load Qdrant credentials from environment variables
-    qdrant_api_key = os.getenv("QDRANT_API_KEY_REMOTE")
-    qdrant_endpoint = os.getenv("QDRANT_ENDPOINT_REMOTE")
-
+    # qdrant_api_key = os.getenv("QDRANT_API_KEY_REMOTE")
+    qdrant_endpoint = os.getenv("QDRANT_ENDPOINT_LOCAL")
     # Initialize the factory for Qdrant
     db = VectorDBFactory(
         db_type="qdrant",
-        api_key=qdrant_api_key,
+        # api_key=qdrant_api_key,
         endpoint=qdrant_endpoint,
     )
 
@@ -70,5 +69,5 @@ if __name__ == "__main__":
     print("Testing Qdrant functionality...")
     test_qdrant_collection()
 
-    print("\nTesting Pinecone functionality...")
-    test_pinecone_collection()
+    # print("\nTesting Pinecone functionality...")
+    # test_pinecone_collection()
