@@ -6,19 +6,17 @@ from pinecone import Pinecone
 
 load_dotenv()  # Load environment variables
 
-def connection(db_type: str):
+def connection(db_type: str, **kwargs):
     """
     Creates a connection to either Pinecone or Qdrant, based on the db_type.
     :param db_type: "pinecone" or "qdrant"
     :return: Connection object
     """
     if db_type.lower() == "pinecone":
-        pinecone_api_key = os.getenv("PINECONE_API_KEY_REMOTE")
-
+        pinecone_api_key = kwargs.get("api_key")
         if not pinecone_api_key:
-            raise ValueError(
-                "Pinecone API Key and environment must be provided via environment variables."
-            )
+            raise ValueError("Pinecone API key must be provided")
+
         try:
             connector = Pinecone(api_key=pinecone_api_key)
             return connector
@@ -26,22 +24,11 @@ def connection(db_type: str):
             raise RuntimeError(f"Failed to connect to Pinecone: {e}")
 
     elif db_type.lower() == "qdrant":
-        local_endpoint = os.getenv("QDRANT_ENDPOINT_LOCAL")
-        local_api_key = os.getenv("QDRANT_API_KEY_LOCAL")
-        remote_endpoint = os.getenv("QDRANT_ENDPOINT_REMOTE")
-        remote_api_key = os.getenv("QDRANT_API_KEY_REMOTE")
+        endpoint = kwargs.get("endpoint")
+        api_key = kwargs.get("api_key")
 
-        if local_endpoint:
-            endpoint = local_endpoint
-            api_key = local_api_key
-        elif remote_endpoint:
-            endpoint = remote_endpoint
-            api_key = remote_api_key
-        else:
-            raise ValueError(
-                "No Qdrant endpoint configured. Set QDRANT_ENDPOINT_LOCAL or QDRANT_ENDPOINT_REMOTE in the .env file."
-            )
-
+        if not endpoint:
+            raise ValueError("Qdrant endpoint must be provided")
         try:
             connector = QdrantClient(url=endpoint, api_key=api_key)
             return connector

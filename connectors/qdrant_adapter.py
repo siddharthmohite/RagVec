@@ -4,7 +4,11 @@ from qdrant_client import models
 
 class QdrantDB(VectorDatabase):
     def __init__(self, **kwargs):
-        self.connector = connection("qdrant")
+        """
+        Initialize QdrantDB by creating a connection using provided parameters.
+        :param kwargs: Contains `api_key`, `endpoint`, and other optional parameters.
+        """
+        self.connector = connection("qdrant", **kwargs)
 
     def create_collection(self, name: str, dimension: int, **kwargs) -> None:
          """
