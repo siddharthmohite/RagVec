@@ -14,12 +14,12 @@ def test_qdrant_collection():
     Test creating a real Qdrant collection using the library.
     """
     # Load Qdrant credentials from environment variables
-    # qdrant_api_key = os.getenv("QDRANT_API_KEY_REMOTE")
-    qdrant_endpoint = os.getenv("QDRANT_ENDPOINT_LOCAL")
+    qdrant_api_key = os.getenv("QDRANT_API_KEY_REMOTE")
+    qdrant_endpoint = os.getenv("QDRANT_ENDPOINT_REMOTE")
     # Initialize the factory for Qdrant
     db = VectorDBFactory(
         db_type="qdrant",
-        # api_key=qdrant_api_key,
+        api_key=qdrant_api_key,
         endpoint=qdrant_endpoint,
     )
 
