@@ -22,17 +22,18 @@ def test_qdrant_collection():
         api_key=qdrant_api_key,
         endpoint=qdrant_endpoint,
     )
-
+    name = "test_qdrant_collection"
     # Create a collection
     try:
-        db.create_collection(
-            name="test_qdrant_collection",
-            dimension=128,
-            distance=Distance.COSINE,  # Qdrant-specific distance metric
-        )
-        print("Qdrant: Successfully created the collection 'test_qdrant_collection'.")
+        db.get_collection_details(name)
+        # db.create_collection(
+        #     name="test_qdrant_collection",
+        #     dimension=128,
+        #     distance=Distance.COSINE,  # Qdrant-specific distance metric
+        # )
+        # print("Qdrant: Successfully created the collection 'test_qdrant_collection'.")
     except Exception as e:
-        print(f"Qdrant: Failed to create the collection: {e}")
+        print(f"Qdrant: Failed to get the collection details {name}: {e}")
 
 
 def test_pinecone_collection():
@@ -50,24 +51,30 @@ def test_pinecone_collection():
     )
 
     # Create an index (collection) in Pinecone
-    try:
-        db = PineConeDB()
+    # try:
+    #     db = PineConeDB()
 
-        db.create_collection(
-            name="testing",
-            dimension=128,
-            metric="cosine",
-            cloud="aws",
-            region="us-east-1"
-        )
+    #     db.create_collection(
+    #         name="testing",
+    #         dimension=128,
+    #         metric="cosine",
+    #         cloud="aws",
+    #         region="us-east-1"
+    #     )
+    # except Exception as e:
+    #     print(f"Pinecone: Failed to create the collection: {e}")
+    #     return
+    name = "testing"
+    try:
+        db.get_collection_details(name)
     except Exception as e:
         print(f"Pinecone: Failed to create the collection: {e}")
         return
     
 
 if __name__ == "__main__":
-    print("Testing Qdrant functionality...")
-    test_qdrant_collection()
+    # print("Testing Qdrant functionality...")
+    # test_qdrant_collection()
 
-    # print("\nTesting Pinecone functionality...")
-    # test_pinecone_collection()
+    print("\nTesting Pinecone functionality...")
+    test_pinecone_collection()

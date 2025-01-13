@@ -13,7 +13,8 @@ def connection(db_type: str, **kwargs):
     :return: Connection object
     """
     if db_type.lower() == "pinecone":
-        pinecone_api_key = kwargs.get("api_key")
+        # Fetch api key here from environment variables
+        pinecone_api_key = os.getenv("PINECONE_API_KEY_REMOTE")
         if not pinecone_api_key:
             raise ValueError("Pinecone API key must be provided")
 
