@@ -17,6 +17,9 @@ class VectorDBFactory:
     # Unified interface for collections
     def create_collection(self, name: str, dimension: int, **kwargs):
         return self.db.create_collection(name, dimension, **kwargs)
+    
+    def get_collection_details(self, name:str):
+        return self.db.get_collection_details(name)
 
     # def delete_collection(self, name: str):
     #     return self.db.delete_collection(name)

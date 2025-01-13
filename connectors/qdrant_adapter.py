@@ -26,3 +26,13 @@ class QdrantDB(VectorDatabase):
              print(f" QDrant: Created collection {name} with dimension {dimension}")
          except Exception as e:
              raise RuntimeError(f"QDrant: Failed to create collection {name}: {e}")
+
+    def get_collection_details(self, name:str) -> None:
+        """
+        Get all the collection details provided with a name
+        """
+        try:
+            result = self.connector.get_collection(name)
+            print(result)
+        except Exception as e:
+            raise RuntimeError(f"QDrant: Failed to get collection details {name} : {e}")    

@@ -31,3 +31,14 @@ class PineConeDB(VectorDatabase):
 
         # Only print this message if the creation succeeds
         print(f"Pinecone: Successfully created index '{name}' with dimension {dimension} and metric {metric}.")
+
+    def get_collection_details(self, name: str) -> None:
+        """
+        Gets index description from pinecone for a given index
+        """
+
+        try:
+            index_description = self.connector.describe_index(name)
+            print(index_description)
+        except Exception as e:
+            raise ValueError(f"Pinecone: Failed to retrieve index details with {name} : {e}")    
