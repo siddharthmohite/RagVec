@@ -25,7 +25,8 @@ def test_qdrant_collection():
     name = "test_qdrant_collection"
     # Create a collection
     try:
-        db.get_collection_details(name)
+        # db.get_collection_details(name)
+        db.list_all_collections()
         # db.create_collection(
         #     name="test_qdrant_collection",
         #     dimension=128,
@@ -42,8 +43,6 @@ def test_pinecone_collection():
     """
     # Load Pinecone credentials from environment variables
     pinecone_api_key = os.getenv("PINECONE_API_KEY_REMOTE")
-    print(pinecone_api_key)
-
     # Initialize the factory for Pinecone
     db = VectorDBFactory(
         db_type="pinecone",
@@ -66,15 +65,16 @@ def test_pinecone_collection():
     #     return
     name = "testing"
     try:
-        db.get_collection_details(name)
+        # db.get_collection_details(name)
+        db.list_all_collections()
     except Exception as e:
         print(f"Pinecone: Failed to create the collection: {e}")
         return
     
 
 if __name__ == "__main__":
-    # print("Testing Qdrant functionality...")
-    # test_qdrant_collection()
+    print("Listing all qdrant collections")
+    test_qdrant_collection()
 
-    print("\nTesting Pinecone functionality...")
+    print("\nListing all pinecone collections")
     test_pinecone_collection()
