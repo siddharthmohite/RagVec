@@ -42,3 +42,14 @@ class PineConeDB(VectorDatabase):
             print(index_description)
         except Exception as e:
             raise ValueError(f"Pinecone: Failed to retrieve index details with {name} : {e}")    
+
+
+    def list_all_collections(self) -> None:
+        """
+        List all indexes inside Pinecone 
+        """
+        try:
+            all_collections = self.connector.list_indexes()
+            print(all_collections)
+        except Exception as e:
+            raise RuntimeError(f"Pinecone: Failed to list all collections : {e}")    
