@@ -52,4 +52,14 @@ class PineConeDB(VectorDatabase):
             all_collections = self.connector.list_indexes()
             print(all_collections)
         except Exception as e:
-            raise RuntimeError(f"Pinecone: Failed to list all collections : {e}")    
+            raise RuntimeError(f"Pinecone: Failed to list all collections : {e}")
+
+    def delete_collection(self, name: str) -> None:
+        """
+        Delete's a index with a given name
+        """
+        try:
+            response = self.connector.delete_index(name)
+            print(response)
+        except Exception as e:
+            raise RuntimeError(f"Pinecone: Failed to Delete Collection with {name} : {e}")
