@@ -23,6 +23,9 @@ class VectorDBFactory:
     
     def list_all_collections(self):
         return self.db.list_all_collections()
+    
+    def delete_collection(self, name: str):
+        return self.db.delete_collection(name)
 
     # def delete_collection(self, name: str):
     #     return self.db.delete_collection(name)

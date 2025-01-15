@@ -45,4 +45,14 @@ class QdrantDB(VectorDatabase):
             all_collections = self.connector.get_collections()
             print(all_collections) 
         except Exception as e:
-            raise RuntimeError(f"Qdrant failed to List collections : {e}")    
+            raise RuntimeError(f"Qdrant failed to List collections : {e}")
+
+    def delete_collection(self, name: str) -> None:
+        """
+        Delete's a collection with a given name
+        """
+        try:
+            response = self.connector.delete_collection(name)
+            print(response)
+        except Exception as e:
+            raise RuntimeError(f"Qdrant: Failed to delete collection with {name} : {e}")

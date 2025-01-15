@@ -25,8 +25,9 @@ def test_qdrant_collection():
     name = "test_qdrant_collection"
     # Create a collection
     try:
+        db.delete_collection(name)
         # db.get_collection_details(name)
-        db.list_all_collections()
+        # db.list_all_collections()
         # db.create_collection(
         #     name="test_qdrant_collection",
         #     dimension=128,
@@ -34,7 +35,7 @@ def test_qdrant_collection():
         # )
         # print("Qdrant: Successfully created the collection 'test_qdrant_collection'.")
     except Exception as e:
-        print(f"Qdrant: Failed to get the collection details {name}: {e}")
+        print(f"Qdrant: Failed to delete collection with {name}: {e}")
 
 
 def test_pinecone_collection():
@@ -48,8 +49,6 @@ def test_pinecone_collection():
         db_type="pinecone",
         api_key=pinecone_api_key,
     )
-
-    # Create an index (collection) in Pinecone
     # try:
     #     db = PineConeDB()
 
@@ -66,15 +65,16 @@ def test_pinecone_collection():
     name = "testing"
     try:
         # db.get_collection_details(name)
-        db.list_all_collections()
+        # db.list_all_collections()
+        db.delete_collection(name)
     except Exception as e:
-        print(f"Pinecone: Failed to create the collection: {e}")
+        print(f"Pinecone: Failed to Delete collection with {name}: {e}")
         return
     
 
 if __name__ == "__main__":
-    print("Listing all qdrant collections")
+    print("Deleting a collection from Qdrant")
     test_qdrant_collection()
 
-    print("\nListing all pinecone collections")
+    print("\nDeleting a collection(index) from Pinecone")
     test_pinecone_collection()
